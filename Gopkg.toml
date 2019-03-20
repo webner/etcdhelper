@@ -1,0 +1,29 @@
+ignored = [
+  "github.com/webner/etcdhelper/openshift.local.clusterup",
+  "github.com/webner/etcdhelper/openshift.local.config",
+  "github.com/webner/etcdhelper/openshift.local.etcd",
+  "github.com/webner/etcdhelper/openshift.local.volumes",
+]
+
+[[constraint]]
+  branch = "origin-3.10-etcd-v3.2.16"
+  name = "github.com/coreos/etcd"
+  source = "https://github.com/openshift/coreos-etcd.git"
+
+[[constraint]]
+  branch = "release-3.11"
+  name = "github.com/openshift/origin"
+
+[[constraint]]
+  branch = "origin-3.11-kubernetes-1.11.1"
+  name = "k8s.io/apimachinery"
+  source = "https://github.com/openshift/kubernetes-apimachinery.git"
+
+[[constraint]]
+  branch = "origin-3.11-kubernetes-1.11.1"
+  name = "k8s.io/kubernetes"
+  source = "https://github.com/openshift/kubernetes.git"
+
+[prune]
+  go-tests = true
+  unused-packages = true
