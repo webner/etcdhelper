@@ -154,7 +154,7 @@ func dump(client *clientv3.Client) error {
 
 	for _, kv := range response.Kvs {
 
-		filename := string(kv.Key)[1:]
+		filename := string(kv.Key)[1:] + ".yaml"
 		path := path.Dir(filename)
 		os.MkdirAll(path, os.ModePerm)
 
