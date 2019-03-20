@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 	"time"
 
 	jsonserializer "k8s.io/apimachinery/pkg/runtime/serializer/json"
@@ -28,7 +29,7 @@ func init() {
 
 func main() {
 	var endpoint, keyFile, certFile, caFile string
-	flag.StringVar(&endpoint, "endpoint", "https://127.0.0.1:4001", "Etcd endpoint.")
+	flag.StringVar(&endpoint, "endpoint", "https://127.0.0.1:2379", "Etcd endpoint.")
 	flag.StringVar(&keyFile, "key", "", "TLS client key.")
 	flag.StringVar(&certFile, "cert", "", "TLS client certificate.")
 	flag.StringVar(&caFile, "cacert", "", "Server TLS CA certificate.")
@@ -68,7 +69,7 @@ func main() {
 	}
 
 	config := clientv3.Config{
-		Endpoints:   []string{endpoint},
+		Endpoints:   strings.Split(endpoint, ","),
 		TLS:         tlsConfig,
 		DialTimeout: 5 * time.Second,
 	}
@@ -177,13 +178,4 @@ func dump(client *clientv3.Client) error {
 	}
 
 	return nil
-}
-
-type etcd3kv struct {
-	Key            string `json:"key,omitempty"`
-	Value          string `json:"value,omitempty"`
-	CreateRevision int64  `json:"create_revision,omitempty"`
-	ModRevision    int64  `json:"mod_revision,omitempty"`
-	Version        int64  `json:"version,omitempty"`
-	Lease          int64  `json:"lease,omitempty"`
 }
