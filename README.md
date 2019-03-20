@@ -9,7 +9,6 @@ This is a copy of https://github.com/openshift/origin/tree/master/tools/etcdhelp
 
 ## How to build
 
-    $ glide install -v
     $ go build .
 
 ## Basic Usage
