@@ -1,0 +1,6 @@
+#!/bin/bash
+docker run --name etcd-from-snapshot -e ETCDCTL_API=3 -d -v $PWD/snapshot.db:/snapshot.db -p 2379:2379 quay.io/coreos/etcd:v3.2.22 sh -c 'etcdctl snapshot restore snapshot.db && etcd --listen-client-urls=http://0.0.0.0:2379 --advertise-client-urls=http://0.0.0.0:2379'
+
+./etcdhelper -endpoint http://127.0.0.1:2379 dump
+
+docker rm -fv etcd-from-snapshot
